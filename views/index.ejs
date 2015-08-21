@@ -1,0 +1,59 @@
+<html>
+<head>
+	<title>Survey Form</title>
+	<link rel="stylesheet" type="text/css" href="style_index.css">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type ="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type ="text/javascript">
+        $(document).ready(function (){
+            // this triggers the connection event in our server!
+            var socket = io.connect();
+            var print_message ="";
+            var print_random ="";
+            // we'll write all the socket stuff after the above line!
+            $('button').click(function(){
+            	socket.emit("posting_form", {name: $('#name').val(),
+            								 location: $('#location').val(),
+            								 lang: $('#lang').val(),
+            								 comment: $('#comment').val()});
+            	$('.result').val('');
+            });
+            socket.on('updated_message', function(data){
+            	$('#form').before("<div id='message'><p>Your emitted the following information to the server: " + JSON.stringify(data) + "</p></div>");
+            });
+            socket.on('random_number', function(data){
+            	$('#message').append("<br><p>Your lucky number emitted by the server is " + data.random_num + "</p>");
+            });
+        })
+    </script>
+</head>
+<body>
+	<div id="wrapper">
+		<div id="form">
+ 			<span class="q">Your Name: </span><input class="result" id ="name" type='text' name='name'><br>
+			<span class="q">Dojo Location: </span>
+			<select class="result" id ="location" name="location">
+				<option value=""></option>
+				<option value="Mountain View, CA">Mountain View</option>
+		  	 	<option value="Seattle, WA">Seattle</option>
+		  	 	<option value="Los Angeles, CA">Los Angeles</option></option>
+			</select><br>
+			<span class="q">Favorite Language: </span>
+			<select class="result" id ="lang" name = "lang">
+				<option value=""></option>
+				<option value="HTML/CSS3">HTML/CSS3</option>
+		  	 	<option value="jQuery">jQuery</option>
+		  	 	<option value="PHP">PHP</option>
+	  	 		<option value="MySQL">MySQL</option>
+	  	 		<option value="CodeIgniter">CodeIgniter</option>
+	  	 		<option value="Ajax">Ajax</option>
+	  	 		<option value="JavaScript">JavaScript</option>
+	  	 		<option value="Node.js">Node.js</option>
+		  	</select><br>
+		  	<span class="q">Comment (optional): </span><br>
+		  	<textarea class="result" id ="comment" name ="comment"></textarea><br>
+			<button>Submit</button><br>
+		</div>
+	</div>
+</body>
+</html>

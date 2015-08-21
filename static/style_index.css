@@ -1,0 +1,38 @@
+*{
+	margin: 0px auto;
+	padding: 0px;
+	font-family: sans-serif;
+}
+#wrapper {
+	padding: 50px 100px;
+	line-height: 30px;
+}
+.q {
+	display: inline-block;
+	width: 150px;
+}
+#form, #message {
+	border: solid 1px silver;
+	padding: 20px;
+	width: 275px;
+}
+#message {
+	line-height: 15px;
+	font-size: 14px;
+	margin-bottom: 10px;
+}
+input, select {
+	width: 120px;
+}
+textarea {
+	width: 270px;
+	height: 50px;
+	margin-bottom: 10px;
+}
+button {
+	padding: 4px;
+	width: 80px;
+	margin-left: 190px;
+	background-color: black;
+	color: white;
+}
